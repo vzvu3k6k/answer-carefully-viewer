@@ -32,28 +32,9 @@ const saveAsHTMLFile = (fileName, html) => {
 };
 
 const buildHTMLFromDataset = (fileName, dataset) => {
-  const entries = dataset.map((data) => {
-    return html`
-      <div class="entry">
-        <p><strong>ID:</strong> ${data.ID}</p>
-        <p><strong>Text:</strong> <span class="pre-wrap">${data.text}</span></p>
-        <p><strong>Output:</strong> <span class="pre-wrap">${data.output}</span></p>
-        <div class="meta-section">
-          <p><strong>Meta:</strong></p>
-          <ul>
-            <li>Risk Area: ${data.meta["risk-area"]}</li>
-            <li>Harm Type: ${data.meta["harm-type"]}</li>
-            <li>Specific Harm: ${data.meta["specific-harm"]}</li>
-          </ul>
-        </div>
-      </div>
-    `;
-  });
-  return `
-    <!DOCTYPE html>
-    <html lang="ja">
+  return "<!DOCTYPE html>" + html`<html lang="ja">
       <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
         <title>${fileName}</title>
         <style>
           .entry {
@@ -72,11 +53,27 @@ const buildHTMLFromDataset = (fileName, dataset) => {
       </head>
       <body>
         <h1>${fileName}</h1>
-        ${entries.join("\n")}
+        ${dataset.map((entry) => html`<${Entry} data=${entry} />`)}
       </body>
     </html>
   `;
 };
+
+const Entry = ({ data }) => (html`
+  <div class="entry">
+    <p><strong>ID:</strong> ${data.ID}</p>
+    <p><strong>Text:</strong> <span class="pre-wrap">${data.text}</span></p>
+    <p><strong>Output:</strong> <span class="pre-wrap">${data.output}</span></p>
+    <div class="meta-section">
+      <p><strong>Meta:</strong></p>
+      <ul>
+        <li>Risk Area: ${data.meta["risk-area"]}</li>
+        <li>Harm Type: ${data.meta["harm-type"]}</li>
+        <li>Specific Harm: ${data.meta["specific-harm"]}</li>
+      </ul>
+    </div>
+  </div>
+`);
 
 const reportError = (error) => {
   console.error(error);
