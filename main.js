@@ -34,11 +34,11 @@ const saveAsHTMLFile = (fileName, html) => {
 const buildHTMLFromDataset = (fileName, dataset) => {
   const entries = dataset.map((data) => {
     return html`
-      <div style="border: 1px solid #ccc; margin: 10px; padding: 10px; max-width: 75em;">
+      <div class="entry">
         <p><strong>ID:</strong> ${data.ID}</p>
-        <p><strong>Text:</strong> <span style="white-space: pre-wrap">${data.text}</span></p>
-        <p><strong>Output:</strong> <span style="white-space: pre-wrap">${data.output}</span></p>
-        <div style="margin-top: 10px;">
+        <p><strong>Text:</strong> <span class="pre-wrap">${data.text}</span></p>
+        <p><strong>Output:</strong> <span class="pre-wrap">${data.output}</span></p>
+        <div class="meta-section">
           <p><strong>Meta:</strong></p>
           <ul>
             <li>Risk Area: ${data.meta["risk-area"]}</li>
@@ -55,6 +55,20 @@ const buildHTMLFromDataset = (fileName, dataset) => {
       <head>
         <meta charset="UTF-8">
         <title>${fileName}</title>
+        <style>
+          .entry {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            max-width: 75em;
+          }
+          .pre-wrap {
+            white-space: pre-wrap;
+          }
+          .meta-section {
+            margin-top: 10px;
+          }
+        </style>
       </head>
       <body>
         <h1>${fileName}</h1>
