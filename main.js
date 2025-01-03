@@ -43,6 +43,9 @@ const buildHTMLFromDataset = (fileName, dataset) => {
             padding: 10px;
             max-width: 75em;
           }
+          .entry-anchor {
+            color: #aaa;
+          }
           .pre-wrap {
             white-space: pre-wrap;
           }
@@ -60,8 +63,8 @@ const buildHTMLFromDataset = (fileName, dataset) => {
 };
 
 const Entry = ({ data }) => (html`
-  <div class="entry">
-    <p><strong>ID:</strong> ${data.ID}</p>
+  <div class="entry" id=${data.ID}>
+    <p><strong>ID:</strong> ${data.ID} <a class="entry-anchor" href="${`#${data.ID}`}">§</a></p>
     <p><strong>Text:</strong> <span class="pre-wrap">${data.text}</span></p>
     <p><strong>Output:</strong> <span class="pre-wrap">${data.output}</span></p>
     <div class="meta-section">
